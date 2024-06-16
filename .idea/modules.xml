@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Expense-Tracker-Using-Django.iml" filepath="$PROJECT_DIR$/.idea/Expense-Tracker-Using-Django.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/KennethExpenseManagementApp.iml" filepath="$PROJECT_DIR$/.idea/KennethExpenseManagementApp.iml" />
     </modules>
   </component>
 </project>
