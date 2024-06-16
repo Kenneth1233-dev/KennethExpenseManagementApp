@@ -17,7 +17,22 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
+from django.urls import include
+from . import views
+from django.contib.auth import views as auth_views
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("", views.index, name='index'),
+    path('index/', views.index, name='index'),
+    path('register/', views.register, name='register'),
+    path('handleSignup/', views.handleSignup, name='handleSignup'),
+    path('handlelogin/', views.handlelogin, name='handlelogin'),
+    path('handleLogout/', views.handleLogout, name='handleLogout'),
+    path('reset_password/', auth_views.PasswordResetDoneView.as_view(
+        template_name='home/reset_password.html'), name='reset_password'),
+    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(
+        template_name='home/password_reset.html'), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetDoneView.as_view(
+        template_name='home/password_reset_form.html'), name='password_reset_confirm'),
+    
 ]
