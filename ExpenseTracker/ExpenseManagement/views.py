@@ -25,21 +25,21 @@ def index(request):
     if request.session.has_key('is_logged'):
         user_id = request.session["user_id"]
         user = User.objects.get(id=user_id)
-        addmoney_info = Addmoney_info.objects.filter(user=user).order_by('Date')
-        paginator = Paginator(addmoney_info, 4)
+        topup_info = Topup_info.objects.filter(user=user).order_by('Date')
+        paginator = Paginator(topup_info, 4)
         page_umber = request.GET.get('page')
         page_obj = Paginator.get_page(paginator, page_umber)
         context = {
                     #'add_info':
-                    addmoney_info, 'page_obj', page_obj
+                    topup_info, 'page_obj', page_obj
         }
         # if request.session.has_key('is_logged'):
         return render(request, 'home/index.html', context)
     return redirect('home')
 
 
-def addmoney(request):
-    return render(request, 'home/addmoney.html')
+def topup(request):
+    return render(request, 'home/topup.html')
 
 
 def profile(request):
@@ -153,20 +153,20 @@ def handleLogout(request):
     return redirect('home')
 
 
-def addmoney_submission(request):
+def topup_submission(request):
     if request.session.has_key('is_logged'):
         if request.method == 'POST':
             user_id = request.session['user_id']
             user1 = User.objects.get(id=user_id)
-            addmoney_info1 = Addmoney_info.objects.filter(user=user1).order_by('-Date')
-            add_money = request.POST['add_money']
+            topup_info1 = Topup_info.objects.filter(user=user1).order_by('-Date')
+            top_up = request.POST['top_up']
             quantity = request.POST['quantity']
             Date = request.POST['Date']
             Category = request.POST['Category']
-            add = Addmoney_info(user=user1, add_money=add_money, quantity=quantity, Date=Date, Category=Category)
+            add = Topup_info(user=user1, top_up=top_up, quantity=quantity, Date=Date, Category=Category)
 
             add.save()
-            paginator = Paginator(addmoney_info1, 4)
+            paginator = Paginator(topup_info1, 4)
             page_number = request.GET.get('page')
             page_obj = Paginator.get_page(paginator, page_number)
 
@@ -177,7 +177,7 @@ def addmoney_submission(request):
         return redirect('/index')
 
 
-def addmoney_update(request, id):
+def topup_update(request, id):
     if request.session.has_key('is_logged'):
         if request.method == 'POST':
-            add = Addmoney_info.objects.get(id=id)
+            add = Topup_info.objects.get(id=id)
