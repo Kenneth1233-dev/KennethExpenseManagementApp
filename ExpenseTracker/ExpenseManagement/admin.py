@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import Addmoney_info
+from .models import Topup_info
 
-class Addmoney_infoAdmin(admin.ModelAdmin):
-    list_display=("user", "quantity", "Date", "Category", "add_money")
-    admin.site.rgister(Addmoney_info,Addmoney_infoAdmin)
+
+class Topup_infoAdmin(admin.ModelAdmin):
+    list_display=("user", "quantity", "Date", "Category", "top_up")
+    admin.site.rgister(Topup_info, Topup_infoAdmin)
 
     from django.contrib.sessions.models import Session
     admin.site.register(Session)
