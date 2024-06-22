@@ -37,27 +37,29 @@ PROFESSION_CHOICES =[
 ]
 
 
-class Addmoney_info(models.Model):
+class Topup_info(models.Model):
     user = models.ForeignKey(User,default = 1, on_delete=models.CASCADE)
 
-    add_money = models.CharField(max_length = 10 , choices = ADD_EXPENSE_CHOICES)
+    top_up = models.CharField(max_length = 10 , choices = ADD_EXPENSE_CHOICES)
+
 
 quantity = models.BigIntegerField()
 Date = models.DateField(default = now)
-Category = models.CharField( max_length = 20, choices = SELECT_CATEGORY_CHOICES , default ='Food')
+Category = models.CharField( max_length = 20, choices = SELECT_CATEGORY_CHOICES, default='Food')
 
 
 class Meta:
-    db_table:'addmoney'
+    db_table: 'topup'
 
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
 
-    profession = models.CharField(max_length = 10, choices=PROFESSION_CHOICES) Savings = models.IntegerField( null=True, blank=True)
+    profession = models.CharField(max_length = 10, choices=PROFESSION_CHOICES)
+    Savings = models.IntegerField( null=True, blank=True)
     income = models.BigIntegerField(null=True, blank=True)
 
-    image = models.ImageField(upload_to='profile_image',blank=True)
+    image = models.ImageField(upload_to='profile_image', blank=True)
 
 
 def   str  (self):
