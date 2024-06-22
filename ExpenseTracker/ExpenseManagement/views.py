@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as dj_login
 from django.contrib.auth.models import User
-from .models import Addmoney_info, UserProfile
+from .models import Topup_info, UserProfile
 from django.contrib.sessions.models import Session
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Sum
@@ -171,7 +171,7 @@ def topup_submission(request):
             page_obj = Paginator.get_page(paginator, page_number)
 
             context = {
-                'page_obj' : page_obj
+                'page_obj': page_obj
             }
             return render(request, 'home/index.html', context)
         return redirect('/index')
@@ -181,3 +181,195 @@ def topup_update(request, id):
     if request.session.has_key('is_logged'):
         if request.method == 'POST':
             add = Topup_info.objects.get(id=id)
+            add.top_up = request.POST['top_up']
+            add.quantity = request.POST['quantity']
+            add.date = request.POST['Date']
+            add.Category = request.POST['Category']
+            add.save()
+            return redirect('/index')
+        return redirect('/home')
+
+
+def expense_edit(request, id):
+    if request.session.has_key('is_logged'):
+        topup_info = Topup_info.objects.get(id=id)
+        user_id = request.session('user_id')
+        user1 = User.objects.get(id=user_id)
+        return render(request, 'home/expense_edit.html', { 'topup_info':topup_info })
+    return redirect('/home')
+
+
+def expense_delete(request, id):
+    if request.session.has_key('is_logged'):
+        topup_info = Topup_info.session.objects.get(id=id)
+        topup_info.delete()
+        return redirect('/index')
+    return redirect('/home')
+
+
+def expense_month(request):
+    today_date = datetime.date.today()
+    one_month_ago = todays_date-datetime.timedelta(days=30)
+    user_id = request.session['user_id']
+    user1 = User.objects.get(id=user_id)
+    topup = Topup_info.objects.filter(user=user1, Date_gte=one_month_ago, Date_lte=todays_date)
+    finalrep ={}
+
+
+def get_Category(topup_info):
+    # if topup_info.top_up=='Expense':
+    return topup_info.Category
+
+
+Category_list = list(set(map(get_Category, topup)))
+
+
+def get_expense_category_amount(Category, top_up):
+    quantity = 0
+    filtered_by_category = topup.filter(Category=Category, top_up='Expense')
+    for i in filtered_by_category:
+        quantity += i.quantity
+    return qantity
+    for x in topup:
+        for y in Category_list:
+            finalrep[y] = get_expense_category_amount(y, 'Expense')
+    return JsonResponse({'expense_category_data': finalrep}, safe=False)
+
+
+def stats(request):
+    if request.session.has_key('is_logged'):
+        todays_date = datetime.date.today()
+        one_month_ago = todays_date-datetime.timedelta(days=30)
+        user_id = request.session['user_id']
+        user1 = User.objects.get(id=user_id)
+        topup_info = Topup_info.objects.filter(user=user1, Date_get=one_month_ago, Date_lte=todays_date)
+        sum = 0
+
+        for i in topup_info:
+            if i.top_up == 'Expense':
+                sum += i.quantity
+
+        topup_info.sum = sum
+        sum1 = 0
+        for i in topup_info:
+            if i.top_up == 'Income':
+                sum1 += i.quantity
+        topup_info.sum1 = sum1
+
+        x = user1.userprofile.Savings + topup_info.sum1 - topup_info.sum
+        y = user1.userprofile.Savings + topup_info.sum1 - topup_info.sum
+
+        if x<0:
+            messages.warning(request, 'Your Expenses has Exceeded your saving!')
+            x = 0
+        if x>0:
+             y = 0
+        topup_info.x = abs(x)
+        topup_info.y = abs(y)
+
+        return render(request, 'home/stats.html', {'topup':topup_info})
+
+
+def expense_week(request):
+    todays_date = datetime.date.today()
+    one_week_ago = todays_date-datetime.timedelta(days=7)
+    user_id = request.session['user_id']
+    user1 = User.objects.get(id=user_id)
+    topup = Topup_info.objects.filter(user=user1, Date_gte=one_week_ago, Date_lte=todays_date)
+    finalrep = {}
+
+
+def get_Category(topup_info):
+    return topup_info.Category
+
+
+Category_list = list(set(map(get_Category, topup)))
+
+
+def get_expense_category_amount(Category, top_up):
+    quantity = 0
+    filtered_by_category = topup.filter(Category=Category, top_up='Expense')
+
+    for i in filtered_by_category:
+        quantity += i.quantity
+        return quantity
+    for x in topup:
+        for y in Category_list:
+            finalrep[y] = get_expense_category_amount(y, 'Expense')
+    return JsonResponse({'expense_category_data': finalrep}, safe=False)
+
+
+def weekly(request):
+    if request.session.has_key('is_logged'):
+        todays_date = datetime.date.today()
+        one_week_ago = todays_date-datetime.timedelta(days=7)
+        user_id = request.session['user_id']
+        user1 = User.objects.get(id=user_id)
+        topup_info = Topup_info.objects.filter(user=user1, Date_gte=one_week_ago, date_lte=todays_date)
+
+        sum = 0
+
+        for i in topup_info:
+            if i.top_up == 'Expense':
+                sum += i.quantity
+
+        topup_info.sum = sum
+        sum1 = 0
+
+        for i in topup_info:
+            if i.top_up == 'Income':
+                sum1 += i.quantity
+
+        topup_info.sum1 = sum1
+
+        x = user1.userprofile.Savings + topup_info.sum1 - topup_info.sum
+        y = user1.userprofile.Savings + topup_info.sum1 - topup_info.sum
+
+        if x < 0:
+            messages.warning(request, 'Your Expenses Exceeded your Savings')
+
+        x = 0
+        if x > 0:
+            y = 0
+            topup_info.x = abs(x)
+            topup_info.y = abs(y)
+        return render(request, 'home/weekly.html', {'topup_info': topup_info})
+
+
+def check(request):
+    if request.method == 'POST':
+        user_exists = User.objects.filter(email=request.POST['email'])
+        messages.error(request, 'Email not registered, TRY AGAIN!!!')
+        return redirect('/reset_password')
+
+
+def info_year(request):
+    todays_date = datetime.date.today()
+    one_week_ago = todays_date-datetime.timedelta(days=30*12)
+    user_id = request.session['user_id']
+
+    user1 = User.objects.get(id=user_id)
+    topup = Topup_info.objects.filter(user=user1, Date_gte=one_week_ago, Date_lte=todays_date)
+    finalrep = {}
+
+
+def get_Category(topup_info):
+    return topup_info.Category
+
+Category_list = list(set(map(get_Category, topup)))
+
+
+def get_expense_category_amount(Category, top_up):
+    quantity = 0
+    filtered_by_category = topup.filter(Category=Category, top_up='Expense')
+    for i in filtered_by_category:
+        quantity += i.quantity
+    return quantity
+
+    for x in topup:
+        for y in Category_list:
+            finalrep[y]= get_expense_category_amount(y, 'Expense')
+    return JsonResponse({'expense_category_data': finalrep}, safe=False)
+
+def info(request):
+    return render(request, 'home/info.html')
