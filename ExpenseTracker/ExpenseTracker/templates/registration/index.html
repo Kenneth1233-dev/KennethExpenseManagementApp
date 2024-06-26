@@ -99,6 +99,112 @@
                 {{request.user.username}}
             </div>
         </nav>
+        <div id="layoutSidenav_content">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} mb-0 alert-dismissible fade show my-10" role="alert">
+                <strong>Message :</strong>{{message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">*</span>
+                </button>
+            </div>
+            {% endfor %}
+            <main>
+                <div class="container-fluid">
+                    <h1 class="mt-4">Expense Tracker</h1>
+                    <img src="{% static 'vecteezy.com/photo/13628079' %}" alt="logo" width="100%" height="500">
+                    <div class="card1">
+                        <h4><b>My Wallet</b></h4>
+                        Add Expense or Money
+                        <button class="b1" onclick="location.href='/topup';">
+                            <i class="fa fa-plus-circle" style="..."></i>
+                        </button>
+                    </div>
+                    <br>
+                    <br>
+<!--                    <div class=card w=-175>
+<div class="card-body">
+<h5 class="class-title">My Wallet</h5>
+<p class="card-text">Add Expense or Money</p>
+<p align="right">
+<button class="b1" onclick="location.href='/topup';">
+<i class="fa fa-plus-circle" style="font-size:48px; color:red"></i>
+</button>
+</p>
+</div>
+</div>-->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table mr-1"></i>
+                            DataTable Example
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                            <th>Deposit</th>
+                                            <th>Amount</th>
+                                            <th>Category</th>
+                                            <th>Date</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for info in page_obj %}
+                                        {% comment %}
+                                        {% for info in add_info %}
+                                        {% endcomment %}
+                                        <tr>
+                                            <td>{{info.top_up}}</td>
+                                            <td>{{info.quantity}}</td>
+                                            <td>{{info.Category}}</td>
+                                            <td>{{info.Date}}</td>
+                                            <td><a href="{% url 'expense_edit' info.id %}" class="btn btn-success">Edit</a></td>
+                                            <td><a href="{% url 'expense_delete' info.id %}" class="btn btn-danger">Delete</a></td>
+                                        </tr>
+
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="">
+                                Showing page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
+                            </div>
+                            <nav aria-label="Page navigator example">
+                                <ul class="paginator align-left float-left mr-auto">
+                                    {% if page_obj.has_previous %}
+                                    <li {% if page_obj.number == 1%} class="page-item active" {% endif%}>
+                                        <a class="page-link" href="?page=1" tabindex="-1">&laquo; first</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                                    {% endif %}
+                                    {% if page_obj.has_next %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Next</a></li>
+                                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_page }}">last &raquo;</a></li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                            <br>
+                            <script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
+                            <script type="text/javascript">
+                            </script>
+                            <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+                            <script src="https://stackpath.bootstrapcdn.com/boostrap/4.5.0/js/boostrap.bundle.min.js" crossorigin="anonymous"></script>
+                            <script src="js/scripts.js"></script>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/charts.js/2.9.4/Chart.min.js" crossorigin="anonymous"></script>
+                            <script src="assets/demo/chart-area-demo.js"></script>
+
+                            <script src="assets/demo/chart-polarArea-demo.js"></script>
+                            <script src="https:////cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css" crossorigin="anonymous"></script>
+                            <script src="https:////cdn.datatables.net/2.0.8/js/dataTables.min.js" crossorigin="anonymous"></script>
+                            <script src="assets/demo/datatables.demo.js"></script>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
 </div>
 
