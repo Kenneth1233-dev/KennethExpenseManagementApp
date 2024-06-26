@@ -1,10 +1,106 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE-edge"/>
+    <meta name="viewpoint" content="with=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Dashboard - SB Admin</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'topup.css' %}">
+    <link href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.min.css" rel="stylesheet" crossorigin="anonymous"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-light">
+        <a class="navbar-brand" href="/index">Start Bootstrap</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+<!--        Navbar Search-->
+        <form method="get" action="/search" class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+           {% csrf_token %}
+            <div class="input-group">
+                {% comment %} <input class="form-control" type="text" placeholder="Search for ..." aria-label="search" aria-describedby="basic-addon2" id="search"/> {% endcomment %}
+                {% comment %} <div class="input-group-append">
+                <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+            </div> {% endcomment %}
+            </div>
+        </form>
+<!--        Navbar-->
+        <ul class="navbar-nav ml-auto ml-md-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="userDowndrop" href="#" role="button" date-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <div class="dropdown-menu dropdown=menu-left" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="#">Settings</a>
+                    <a class="dropdown-item" href="#">Search History</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/handleLogout">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+<div id="layoutSidenav">
+    <div id="layoutSidenave_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Core</div>
+                    <a class="nav-link" href="/index">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        DASHBOARD
+                    </a>
+                    <div class="sb-sidenav-menu-heading">Interface</div>
+                    <div>
+                        <a class="nav-link" href="/profile">
+                            <i class="glyphicon glyphicon-user"></i>
+                                PROFILE</a>
+                        <DIV CLASS="sb-sidenav-menu-heading">Interface</div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                            RECORD
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link" href="/weekly">
+                                    WEEKLY RECORD
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <a class="nav-link" href="stats">
+                                    MONTHLY REORD
+                                    <div class="sb-sidenav-collapse-arrroe"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                            </nav>
+                        </div>
+                        <div class="messages" id="alert-message">
+                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            {% comment %}
+                            <a class="nav-link" href="/charts">
+                            <div class="sb-sidenav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            CHARTS
+                            </a>
+                            {% endcomment%}
+                            <a class="nav-link" href="/info">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                YEARLY RECORD
+                        </a>
+                            <a class="nav-link" href="/tables">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                HISTORY
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="sb-sidenav-footer">
+                <div class="medium">Logged in as:</div>
+                {{request.user.username}}
+            </div>
+        </nav>
+    </div>
+</div>
 
 </body>
 </html>
