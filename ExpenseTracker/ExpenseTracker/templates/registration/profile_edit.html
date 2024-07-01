@@ -46,28 +46,13 @@
                 </div>
             </div>
             <div class="col-md-2">
-                {% comment %}
                 <input type="submit" class="profile-edit-btn" name="btnAddmore" value="edit">
-                {% endcomment %}
-                {% comment %}
-                {% for x in add %}
-                {% endcomment %}
-                <div id="container">
-                    <button type="submit" class="profile-edit-btn" name="btnAddmore"><a href="{% url 'profile_edit' user.id %}"> Edit </a></button>
-                    {% comment %}
-                    <br>
-                    <button type="submit" name="btnAddmore"><a href="/index/">home</a></button>
-                    {% encomment %}
-                    {% comment %}
-                    {% endfor %}
-                    {% endcomment %}
                 </div>
             </div>
-        </div>
         <div class="row">
             <div class="col-md-4">
+                  {% comment %}
                 <div class="profile-work">
-                    {% comment %}
                     <p>WORK LINK</p>
                     <a href="">Website Link</a><br/>
                     <a href="">Bootsnipp Profile</a><br/>
@@ -98,7 +83,8 @@
                                 <label>Name</label>
                             </div>
                             <div class="col-md-6">
-                                <p>{{ user.first_name }} {{ user.last_name }}</p>
+                                <input name="fname" value="{{ user.first_name }}">
+                                <input name="lname" value="{{ user.last_name }}">
                             </div>
                         </div>
                         <div class="row">
@@ -106,7 +92,7 @@
                                 <label>Email</label>
                             </div>
                             <div class="col-md-6">
-                                <p>{{ user.email }}</p>
+                                <input name="email" value="{{ user.email }}">
                             </div>
                         </div>
                         <div class="row">
@@ -114,7 +100,7 @@
                                 <label>Savings</label>
                             </div>
                             <div class="col-md-6">
-                                <p>{{ user.userprofile.Savings }}</p>
+                                <input name="Savings" value="{{ user.userprofile.Savings }}">
                             </div>
                         </div>
                         <div class="row">
@@ -123,7 +109,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <p>{{ user.userprofile.income }}</p>
+                            <input name="Income" value="{{ user.userprofile.income }}">
                         </div>
                     </div>
                     <div class="row">
@@ -132,11 +118,10 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <p>{{ user.userprofile.profession }}</p>
+                        <input name="Profession" value="{{ user.userprofile.profession }}">
                     </div>
                 </div>
             </div>
-            {% comment %}
             <div class="tab-panel fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="row">
                     <div class="col-md-6">
@@ -182,7 +167,6 @@
                     <div class="col-md-6">
                         <label>Your Bio</label>
                         <p>Detailed Description about Yourself</p>
-                        {% endcomment %}
                     </div>
                 </div>
             </div>
