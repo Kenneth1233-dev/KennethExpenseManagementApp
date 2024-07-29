@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% comment %} <link rel="stylesheet" type="text/css" href="try.css"> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'addmoney.css' %}">
+            <link rel="preconnect" href="http://fonts.gstatic.com crossorigin">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta charset="UTF-8">
+    <title>
+        My Wallet
+    </title>
+    </head>
+    <body>
+<div class="big-image"></div>
+
+<div class="big-text"><
+
+     <div id="layoutAuthentication">
+         <div id="layoutAuthentication_content">
+             <main>
+                 <div class="container2">
+                     <div class="row justify-content-center">
+                         <div class="col-lg-5">
+                             <div class="col-xs-5">
+                                 <div class="col-sm-5">
+                                     <div class="col-lg-5">
+                             <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                 <div class="card-header"><h1 class="block font-sans text-base antialiased font-light leading-relaxed text-inherit">My Wallet</h1></div>
+                                 <form method="post" action="/addmoney_submission">{% csrf_token %}
+
+             <div class="form-check">
+                                    What do you want to add?<br>
+                                    <label class="form-check-label" for="add_money">
+             <input class="form-check-input" type="radio" name="add_money" id="add_money" value="Expense" checked required>
+                                        Expense
+                                    </label>
+
+                                    <label class="form-check-label" for="Add_money">
+             <input class="form-check-input" type="radio" name="add_money" id="add_money
+                                                                        </div>
+
+     <div>
+  <label for="quantity">Amount:</label><br>
+  <input type="number" name="quantity" required><br>
+  <br>
+        </div>
+                                    <div>
+  <label>
+    Expense Date:
+    <input type="date" name="Date">
+  </label><br>
+
+                                    </div>
+                                    <div>
+     <div class="f1">
+          Select category-<br>
+     <select class="Category" name="Category" required><br>
+  <option value="Feeding">Feeding</option>
+  <option value="Transport">Transport</option>
+  <option value="Shopping">Shopping</option>
+     <option value="Entertainment">Entertainment</option>
+     <option value="Education">Education</option>
+     <option value="Health">Health</option>
+     <option value="Others">Others</option>
+</select></br>
+
+                                    </div>
+                                                             </div>
+                                <div class="btn">
+  <button type="submit" class="b2" href="/addmoney">submit</button>
+                                </div>
+
+</form>
+                             </div>
+
+                         </div>
+
+
+                    </div>
+
+                </div>
+             </main>
+         </div>
+     </div>
+        </div>
+</body>
+</html>

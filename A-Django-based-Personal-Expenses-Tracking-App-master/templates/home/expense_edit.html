@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+                <link href="css/topup.css" rel="stylesheet"/>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>My Wallet</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'topup.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous"></script>
+</head>
+<body class="bg-primary">
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container2">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5">
+                        <div class="col-xs-5">
+                            <div class="col-sm-5">
+                                <div class="col-lg-5">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header"><h3 class="text-center font-weight-light mt-4">My Wallet</h3></div>
+                            <form method="post" action="{% url 'addmoney_update' addmoney_info.id %}">
+                                {% csrf_token %}
+            Edit <br>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="add_money" id="top_up" value="{{topup_info.top_up}}" check required>
+                                    <label class="form-check-label" for="top_up">Expense</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="add_money" id="add_money" value="{{topup_info.top_up}}" check required>
+                                    <label class="form-check-lebel" for="add_money">income</label>
+<!--  form class="r1" method="post" action="\addmoney_submission\">
+{% csrf_token%}
+what do you want to add
+<input type="radio" name="add_money" value="Expense">
+label for"Expense">Expense</label>
+<input type="radio" name="add_money" value="Income">
+<label for="Income">Income</label><br>-->
+                                    <label for="quantity">Amount</label><br>
+                                    <input type="number" name="quantity" value="{{topup_info.quantity}}" required><br>
+                                    <br>
+                                    <label>
+                                        Expense Date:
+                                        <input type="date" name="Date" value="{{topup_info.Date}}">
+                                    </label><br>
+                                    <div class="f1">
+                                        Select category-<br>
+                                    <select class="Category" name="Category" value="{{topup_info.Category}}" required><br>
+                                        <option value="Feeding">Feeding</option>
+                                        <option value="Transport">Transport</option>
+                                        <option value="Shopping">Shopping</option>
+                                        <option value="Entertainment">Entertainment</option>
+                                        <option value="Eduction">Education</option>
+                                        <option value="Health">Health</option>
+                                        <option value="Others">Others</option>
+                                    </select><br>
+                                    </div>
+                                    <button type="submit" class="b2">Save</button>
+<!--                                    <input type="button" class="b2" onclick="location.href='/topup/'" value="submit!"-->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+</body>
+</html>
